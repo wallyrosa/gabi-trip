@@ -1,0 +1,42 @@
+export const dataSource = [
+  {
+    id: 1,
+    city: "Trindade",
+    country: "Brasil",
+    nameHotel: "Hotel Trindade",
+    PhoneHotel: "556296416234",
+    touristSpots: "Tem um bom ali...",
+  },
+  {
+    id: 2,
+    city: "Goiânia",
+    country: "Brasil",
+    nameHotel: "Hotel Goiânia",
+    PhoneHotel: "556296416123",
+    touristSpots: "Tem um bom ali...",
+  },
+  {
+    id: 3,
+    city: "Aparecida",
+    country: "Brasil",
+    nameHotel: "Hotel Aparecida",
+    PhoneHotel: "556296416456",
+    touristSpots: "Tem um bom ali...",
+  },
+  {
+    id: 4,
+    city: "Pirenópolis",
+    country: "Brasil",
+    nameHotel: "Hotel Pirenópolis",
+    PhoneHotel: "556296416789",
+    touristSpots: "Tem um bom ali...",
+  },
+  {
+    id: 5,
+    city: "Caldas Novas",
+    country: "Brasil",
+    nameHotel: "Hotel Caldas Novas",
+    PhoneHotel: "556296416000",
+    touristSpots: "Tem um bom ali...",
+  },
+];
