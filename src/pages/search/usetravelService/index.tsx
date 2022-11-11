@@ -8,19 +8,18 @@ export interface UseTravelServiceProps {
 }
 
 export function useTravelService(props?: UseTravelServiceProps) {
-  const [location, setLocation] = React.useState<DtoTripLocation[]>();
+  const [locations, setLocations] = React.useState<DtoTripLocation[]>();
   const [loading, setLoading] = React.useState(false);
 
   const search = React.useCallback(async (values: LocalFormValues) => {
-    console.log('Entrou search: ', values)
     try {
       setLoading(true);
       const response = await LocationService.getLocations({
         city: values.city,
-        country: values.country,
+        country: values?.country,
       });
 
-      setLocation(response);
+      setLocations(response);
     } catch (error) {
       console.log(error);
     } finally {
@@ -41,7 +40,7 @@ export function useTravelService(props?: UseTravelServiceProps) {
   }, [search, props?.locationId]);
   return {
     loading,
-    location,
+    locations,
     search,
   };
 }

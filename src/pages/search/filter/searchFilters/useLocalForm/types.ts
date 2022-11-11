@@ -7,7 +7,7 @@ export interface LocalFormValuesTripLocation {
   id: number;
   city: string;
   country: string;
-  nameHotel: string;
-  PhoneHotel: string;
-  touristSpots: string;
+  hotelName: string;
+  hotelPhone: string;
+  travelPlan: string;
 }

@@ -7,9 +7,9 @@ export function getFormValuesFromDtoTrip(dto: DtoTripLocation) {
     id: dto.id,
     city: dto.city,
     country: dto.country,
-    nameHotel: dto.nameHotel,
-    PhoneHotel: dto.PhoneHotel,
-    touristSpots: dto.touristSpots,
+    hotelName: dto.hotelName,
+    hotelPhone: dto.hotelPhone,
+    travelPlan: dto.travelPlan,
   };
 
   return result;
@@ -23,9 +23,9 @@ export function getDtoTripFromFormValues(
     ...(contactId && { id: contactId }),
     city: values.city,
     country: values.country,
-    nameHotel: values.nameHotel,
-    PhoneHotel: values.PhoneHotel,
-    touristSpots: values.touristSpots,
+    hotelName: values.hotelName,
+    hotelPhone: values.hotelPhone,
+    travelPlan: values.travelPlan,
   };
 
   return dto;

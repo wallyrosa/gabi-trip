@@ -10,15 +10,13 @@ interface useLocationServiceProps {
 }
 
 export function useLocationService(props: useLocationServiceProps) {
-  const [location, setLocation] = React.useState<DtoTripLocation>(); 
+  const [location, setLocation] = React.useState<DtoTripLocation>();
   const [loading, setLoading] = React.useState(false);
 
   const load = React.useCallback(async (locationId: number) => {
-    console.log("Entrou");
     try {
       setLoading(false);
       const result = await LocationService.getLocation(locationId);
-      console.log(result);
       setLocation(result);
     } catch (error: any) {
       console.log(error);
@@ -57,9 +55,16 @@ export function useLocationService(props: useLocationServiceProps) {
     [props.locationId]
   );
 
+  const deleteLocation = React.useCallback(
+    async (locationId: number | undefined) => {
+      await LocationService.deleteLocation(locationId);
+    },
+    []
+  );
+
   React.useEffect(() => {
     if (props.locationId) load(props.locationId);
   }, [props.locationId, load]);
 
-  return { location, loading, save };
+  return { location, loading, save, deleteLocation };
 }

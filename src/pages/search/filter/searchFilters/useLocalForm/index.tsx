@@ -3,17 +3,14 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { DtoValidationError } from "../../../../../services/api/types/dtoValidationError";
 import { getErrorsFromServiceValidationError } from "../helpers";
-import { LocalFormValuesTripLocation } from "./types";
+import { LocalFormValues } from "./types";
 import { validationSchema } from "./validations";
 
 export function useLocalForm() {
-  const form = useForm<LocalFormValuesTripLocation>({
+  const form = useForm<LocalFormValues>({
     defaultValues: {
       city: "",
-      country: "",
-      nameHotel: "",
-      PhoneHotel: "",
-      touristSpots: "",
+      country: ""
     },
     resolver: yupResolver(validationSchema),
   });

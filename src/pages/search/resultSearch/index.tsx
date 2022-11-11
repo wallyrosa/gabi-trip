@@ -1,4 +1,5 @@
 import {
+  Button,
   Table,
   TableBody,
   TableCell,
@@ -20,8 +21,13 @@ export function ResultSearch(props: TripResultProps) {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Cidade</TableCell>
-            <TableCell>País</TableCell>
+            <TableCell>
+              <strong>Cidade</strong>
+            </TableCell>
+            <TableCell>
+              <strong>País</strong>
+            </TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -30,16 +36,20 @@ export function ResultSearch(props: TripResultProps) {
               key={location.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell
-                component="th"
-                scope="row"
-                onClick={() => {
-                  props.onSelect(location);
-                }}
-              >
+              <TableCell component="th" scope="row">
                 {location.city}
               </TableCell>
               <TableCell align="left">{location.country}</TableCell>
+              <TableCell sx={{ width: "100px" }}>
+                {" "}
+                <Button
+                  onClick={() => {
+                    props.onSelect(location);
+                  }}
+                >
+                  Editar
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

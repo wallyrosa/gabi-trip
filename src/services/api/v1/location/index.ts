@@ -4,8 +4,7 @@ import { LocationsParams } from "./params";
 import Axios from "axios";
 
 export class LocationService {
-  static async getLocations(params: LocationsParams) {
-    console.log("params: ", params);
+  static async getLocations(params: Partial<LocationsParams>) {
     const url = "/api/v1/location";
     const response = await Axios.get<DtoTripLocation[]>(url, {
       params,
@@ -18,21 +17,21 @@ export class LocationService {
     return response.data;
   }
 
-  static async deleteLocation(locationId: number) {
-    const url = `/location/${locationId}`;
-    const response = await locationAxios.get<DtoTripLocation>(url);
+  static async deleteLocation(locationId: number | undefined) {
+    const url = `/api/v1/location/${locationId}`;
+    const response = await Axios.delete<DtoTripLocation>(url);
     return response.data;
   }
 
   static async postLocation(dto: Partial<DtoTripLocation>) {
-    const url = `/location`;
-    const response = await locationAxios.post<DtoTripLocation>(url, dto);
+    const url = `/api/v1/location`;
+    const response = await Axios.post<DtoTripLocation>(url, dto);
     return response.data;
   }
 
   static async putLocation(locationId: number, dto: Partial<DtoTripLocation>) {
-    const url = `/location/${locationId}`;
-    const response = await locationAxios.put<DtoTripLocation>(url, dto);
+    const url = `/api/v1/location/${locationId}`;
+    const response = await Axios.put<DtoTripLocation>(url, dto);
     return response.data;
   }
 }

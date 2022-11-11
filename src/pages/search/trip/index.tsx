@@ -4,8 +4,8 @@ import * as React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { DtoTripLocation } from "../../../services/api/v1/location/dto";
 import { getFormValuesFromDtoTrip } from "../filter/searchFilters/helpers";
-import { useLocalForm } from "../filter/searchFilters/useLocalForm";
 import { useLocationService } from "../resultSearch/useSearch";
+import { useLocalFormAdd } from "../resultSearch/useLocalFormAdd";
 
 export function TripPage() {
   const { id } = useParams();
@@ -16,8 +16,8 @@ export function TripPage() {
     locationId,
   });
 
-  const form = useLocalForm();
-  const { reset: formReset } = form;
+  const formAdd = useLocalFormAdd();
+  const { reset: formReset } = formAdd;
 
   React.useEffect(() => {
     if (service.location) {
@@ -30,17 +30,27 @@ export function TripPage() {
   }
 
   function handleSubmit(data: DtoTripLocation) {
-    service.save(data, navigateToSearch, form.setValidationsErrors);
+    service.save(data, navigateToSearch, formAdd.setValidationsErrors);
+  }
+  function handleDelete() {
+    service.deleteLocation(locationId);
+    navigateToSearch();
   }
 
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <Typography variant="h4">Gabitrip</Typography>
+        <Typography
+          sx={{ margin: "30px 0px 20px 0px" }}
+          variant="h4"
+          gutterBottom
+        >
+          Gabitrip
+        </Typography>
       </Grid>
       <Grid item xs={6}>
         <Controller
-          control={form.control}
+          control={formAdd.control}
           name="city"
           render={({ field, fieldState }) => (
             <TextField
@@ -56,7 +66,7 @@ export function TripPage() {
       </Grid>
       <Grid item xs={6}>
         <Controller
-          control={form.control}
+          control={formAdd.control}
           name="country"
           render={({ field, fieldState }) => (
             <TextField
@@ -72,14 +82,13 @@ export function TripPage() {
       </Grid>
       <Grid item xs={6}>
         <Controller
-          control={form.control}
-          name="nameHotel"
+          control={formAdd.control}
+          name="hotelName"
           render={({ field, fieldState }) => (
             <TextField
               label={"Nome do Hotel"}
               {...field}
               fullWidth
-              required
               error={fieldState.invalid}
               helperText={fieldState.error?.message}
             />
@@ -88,14 +97,14 @@ export function TripPage() {
       </Grid>
       <Grid item xs={6}>
         <Controller
-          control={form.control}
-          name="PhoneHotel"
+          control={formAdd.control}
+          name="hotelPhone"
           render={({ field, fieldState }) => (
             <TextField
               label={"Número do Hotel"}
+              type="number"
               {...field}
               fullWidth
-              required
               error={fieldState.invalid}
               helperText={fieldState.error?.message}
             />
@@ -104,16 +113,15 @@ export function TripPage() {
       </Grid>
       <Grid item xs={12}>
         <Controller
-          control={form.control}
-          name="touristSpots"
+          control={formAdd.control}
+          name="travelPlan"
           render={({ field, fieldState }) => (
             <TextField
-              label={"País"}
+              label={"Pontos turísticos"}
               {...field}
               fullWidth
               multiline
               rows={6}
-              required
               error={fieldState.invalid}
               helperText={fieldState.error?.message}
             />
@@ -122,14 +130,24 @@ export function TripPage() {
       </Grid>
       <br />
       <br />
-      <Grid item xs={6}>
+      <Grid item xs={1.5}>
         <Button
           variant="contained"
           color="primary"
-          onClick={() => form.handleSubmit(handleSubmit)()}
+          onClick={() => formAdd.handleSubmit(handleSubmit)()}
         >
           Salvar
-        </Button>{" "}
+        </Button>
+      </Grid>
+      {locationId && (
+        <Grid item xs={1.5}>
+          <Button variant="text" color="error" onClick={() => handleDelete()}>
+            Remover
+          </Button>
+        </Grid>
+      )}
+
+      <Grid item xs={1}>
         <Button variant="text" color="primary" onClick={navigateToSearch}>
           Cancelar
         </Button>
